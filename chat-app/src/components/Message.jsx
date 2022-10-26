@@ -8,8 +8,8 @@ function Message() {
             <span>just now</span>
         </div>
         <div className="messageContect">
-            <p>hello</p>
-            {/* <img src="./boi.jpg" alt="" /> */}
+            <p >hello</p>
+            <img src="./boi.jpg" className='image' alt="" />
         </div>
     </div>
   )
