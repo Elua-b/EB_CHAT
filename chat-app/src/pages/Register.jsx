@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage,db } from "../firebase";
 import { async } from "@firebase/util";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   getDownloadURL,
   ref,
@@ -13,6 +14,7 @@ import { doc, setDoc } from "firebase/firestore";
 
 function Register() {
   const [err, setErr] = useState(false);
+  const navigate=useNavigate()
   const handleSubmit = async (e) => {
     e.preventDefault();
     const displayName = e.target[0].value;
@@ -42,6 +44,8 @@ function Register() {
               email,
               photoURL: downloadURL,
             });
+            await setDoc(doc(db,"userChats",res.user.uid),{})
+            navigate("/")
           });
         }
         // .then((userCredential) => {
@@ -66,7 +70,7 @@ function Register() {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">EB_chart</span>
+        <span className="logo">EB-chart</span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
           <input type="text" placeholder="display name" name="displayName" />
@@ -79,7 +83,7 @@ function Register() {
           </label>
           <button>Sign Up </button>
           {err && <span>Something went long</span>}
-          <p>You do have an account ? Login</p>
+          <p>You do have an account ? <Link to="/login">Login</Link> </p>
         </form>
       </div>
     </div>
